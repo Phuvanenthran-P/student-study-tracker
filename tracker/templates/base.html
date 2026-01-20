@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f6f8;
+        margin: 0;
+        padding: 0;
+    }
+    header {
+        background: #2c3e50;
+        color: white;
+        padding: 15px 30px;
+    }
+    main {
+        padding: 30px;
+        max-width: 900px;
+        margin: auto;
+        background: white;
+    }
+    a {
+        color: #2980b9;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    form input, form select, form textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 12px;
+    }
+    button {
+        background: #2980b9;
+        color: white;
+        border: none;
+        padding: 10px 16px;
+        cursor: pointer;
+    }
+    button:hover {
+        background: #1f6690;
+    }
+</style>
+
+<body>
+    <header>
+        <h1>Student Study Tracker</h1>
+        {% if user.is_authenticated %}
+            <p>Welcome, {{ user.username }} | <a href="{% url 'logout' %}">Logout</a></p>
+        {% else %}
+            <p><a href="{% url 'login' %}">Login</a></p>
+        {% endif %}
+        <hr>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <hr>
+        <p>&copy; 2026 Student Study Tracker</p>
+    </footer>
+</body>
+</html>

@@ -41,23 +41,25 @@ class StudyPlan(models.Model):
         ordering = ["-start_date"]
 
     def clean(self):
-        if self.end_date < self.start_date:
-            raise ValidationError("End date cannot be before start date.")
+        if self.user_id is None:
+            return
 
-        if self.daily_target_hours <= 0:
-            raise ValidationError("Daily target hours must be greater than zero.")
+        if self.start_date and self.end_date:
+            if self.end_date < self.start_date:
+                raise ValidationError("End date cannot be before start date")
 
-        # Prevent overlapping active plans for same subject & user
         if self.is_active:
             qs = StudyPlan.objects.filter(
-                user=self.user,
+                user_id=self.user_id,
                 subject=self.subject,
                 is_active=True
-            ).exclude(pk=self.pk)
+            )
+            if self.pk:
+                qs = qs.exclude(pk=self.pk)
 
             if qs.exists():
                 raise ValidationError(
-                    "An active study plan already exists for this subject."
+                    "Only one active study plan allowed per subject"
                 )
 
     def __str__(self):

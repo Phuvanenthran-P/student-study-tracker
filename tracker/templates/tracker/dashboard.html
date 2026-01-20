@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Dashboard</h2>
+
+<section>
+    <h3>Your Subjects</h3>
+    <ul>
+        {% for subject in subjects %}
+            <li><strong>{{ subject.name }}</strong> — {{ subject.description }}</li>
+        {% empty %}
+            <li>No subjects yet.</li>
+        {% endfor %}
+    </ul>
+</section>
+
+<section>
+    <h3>Weekly Study Summary</h3>
+    <ul>
+        {% for entry in weekly_summary %}
+            <li>{{ entry.subject__name }}: {{ entry.total_hours }} hours</li>
+        {% empty %}
+            <li>No logs this week.</li>
+        {% endfor %}
+    </ul>
+</section>
+
+<hr>
+
+<a href="{% url 'add_subject' %}"> Add Subject</a> |
+<a href="{% url 'add_study_plan' %}"> Add Study Plan</a> |
+<a href="{% url 'add_study_log' %}"> Add Study Log</a>
+
+{% endblock %}
