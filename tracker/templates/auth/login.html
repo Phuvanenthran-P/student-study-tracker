@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login | Study Tracker</title>
+    <style>
+        body {
+            background: #f5f7fa;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        .auth-wrapper {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .auth-card {
+            background: white;
+            width: 380px;
+            padding: 32px;
+            border-radius: 8px;
+            border: 1px solid #e2e5ea;
+        }
+
+        .auth-card h2 {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        label {
+            font-weight: 500;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 14px;
+            border-radius: 5px;
+            border: 1px solid #dcdfe4;
+        }
+
+        button {
+            width: 100%;
+            padding: 11px;
+            background: #4f6bed;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .error {
+            color: #d9534f;
+            font-size: 14px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: 18px;
+            font-size: 14px;
+            color: #6c757d;
+        }
+
+        .auth-footer a {
+            color: #4f6bed;
+            text-decoration: none;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <h2>Login</h2>
+
+        {% if form.errors %}
+            <div class="error">Invalid username or password</div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            <label>Username</label>
+            <input name="username" required>
+
+            <label>Password</label>
+            <input type="password" name="password" required>
+
+            <button type="submit">Sign In</button>
+        </form>
+
+        <div class="auth-footer">
+            New here?
+            <a href="{% url 'signup' %}">Create an account</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

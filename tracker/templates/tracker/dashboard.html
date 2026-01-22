@@ -1,34 +1,26 @@
-{% extends "base.html" %}
+{% extends "tracker/base.html" %}
 
 {% block content %}
-<h2>Dashboard</h2>
+<h2>Your Study Plans</h2>
 
-<section>
-    <h3>Your Subjects</h3>
-    <ul>
-        {% for subject in subjects %}
-            <li><strong>{{ subject.name }}</strong> — {{ subject.description }}</li>
-        {% empty %}
-            <li>No subjects yet.</li>
-        {% endfor %}
-    </ul>
-</section>
+{% if dashboard_data %}
+    {% for item in dashboard_data %}
+        <div class="card">
+            <h3>{{ item.plan.subject.name }}</h3>
+            <p>Daily Target: {{ item.plan.daily_target_hours }} hrs</p>
+            <p>Total Studied: {{ item.total_logged }} hrs</p>
+            <p>Progress: {{ item.progress }}%</p>
 
-<section>
-    <h3>Weekly Study Summary</h3>
-    <ul>
-        {% for entry in weekly_summary %}
-            <li>{{ entry.subject__name }}: {{ entry.total_hours }} hours</li>
-        {% empty %}
-            <li>No logs this week.</li>
-        {% endfor %}
-    </ul>
-</section>
+            <form method="post" action="{% url 'delete_study_plan' item.plan.id %}">
+                {% csrf_token %}
+                <button class="btn-danger">Delete Plan</button>
+            </form>
 
-<hr>
-
-<a href="{% url 'add_subject' %}"> Add Subject</a> |
-<a href="{% url 'add_study_plan' %}"> Add Study Plan</a> |
-<a href="{% url 'add_study_log' %}"> Add Study Log</a>
-
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="card">
+        No plans yet. Add a subject first.
+    </div>
+{% endif %}
 {% endblock %}

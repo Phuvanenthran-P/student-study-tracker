@@ -1,63 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Add Study Plan</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-        }
-        .container {
-            width: 400px;
-            margin: 60px auto;
-            background: #fff;
-            padding: 25px;
-            border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        form p {
-            margin-bottom: 12px;
-        }
-        input, select {
-            width: 100%;
-            padding: 8px;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            background: #007bff;
-            border: none;
-            color: white;
-            font-size: 15px;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-        button:hover {
-            background: #0056b3;
-        }
-        .errorlist {
-            color: red;
-            font-size: 13px;
-            margin: 0 0 10px 0;
-        }
-    </style>
-</head>
-<body>
+{% extends "tracker/base.html" %}
 
-<div class="container">
+{% block content %}
+<div class="card">
     <h2>Add Study Plan</h2>
 
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Save Plan</button>
+
+        {% if form.non_field_errors %}
+            <div class="errorlist">{{ form.non_field_errors }}</div>
+        {% endif %}
+
+        {% for field in form %}
+            <p>
+                {{ field.label_tag }}
+                {{ field }}
+                {{ field.errors }}
+            </p>
+        {% endfor %}
+
+        <button>Save Plan</button>
     </form>
 </div>
-
-</body>
-</html>
+{% endblock %}
