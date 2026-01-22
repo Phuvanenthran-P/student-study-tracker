@@ -4,6 +4,7 @@ Clean, interview-safe configuration.
 """
 
 from pathlib import Path
+import os
 
 # --------------------------------------------------
 # BASE
@@ -13,7 +14,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # --------------------------------------------------
 # SECURITY
 # --------------------------------------------------
-SECRET_KEY = 'django-insecure-2e*zt8j)ylg81gqf=hv+@h84)d8cxpg^t8%11psx@==sq1f%+u'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DEBUG = False
 
