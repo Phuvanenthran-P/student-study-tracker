@@ -168,7 +168,7 @@ Relations:
 
 ## 🧑‍💻 Author
 
-Built by Phuvanenthran P
+Built by **Phuvanenthran P**
 Aspiring Python Developer | Django | Data Science Enthusiast
 
 ---
